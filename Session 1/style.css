@@ -1,0 +1,23 @@
+.main{
+    height: 100vh;
+    background-image: url("./Images/w1.jpg");
+    background-size: cover;
+    background-position: center}
+input[type=text]{
+    width: 70%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid white;
+    border-radius: 5px;}
+button{
+    background-color: #dc3546;
+    border: 0px solid white;
+    border-radius: 5px;
+    padding: 12px 40px;
+    color: white;
+    font-size: 16px;}
+.user_input{
+    width: 60%;
+    text-align: center;
+    margin: auto;
+    padding-top: 40px;}

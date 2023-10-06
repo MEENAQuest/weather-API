@@ -1,0 +1,3 @@
+7851c2b89ae9442e800135604230404
+
+http://api.weatherapi.com/v1/forecast.json?key=7851c2b89ae9442e800135604230404&q=mumbai&days=3&aqi=no&alerts=no
