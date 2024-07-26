@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="user_input">
+            <h2>Weather Forecast</h2>
+            <form action="#">
+                <input type="text" placeholder="Enter a City Name" id="city_name">
+                <button type="button" onclick="getWeatherData()">Search</button>
+            </form>
+        </div>
+        <div class="weather_container">
+            <div class="weather_subsection" style="margin-right: 50px;">
+                <h3 id="location"></h3>
+                <h6 id="last_updt"></h6>
+                <h2 id="current_temp"></h2>
+                <span id="icon"></span>
+                <p id="current_weather"></p>
+            </div>
+            <div class="weather_subsection" style="margin-right: 50px;">
+                <h3>Tomorrow</h3>
+                <h6 id="day1_date"></h6>
+                <h2 id="day1_avg_temp"></h2>
+                <span id="day1_icon"></span>
+                <p id="day1_condition"></p>
+            </div>
+            <div class="weather_subsection">
+                <h3>Day After Tomorrow</h3>
+                <h6 id="day2_date"></h6>
+                <h2 id="day2_avg_temp"></h2>
+                <span id="day2_icon"></span>
+                <p id="day2_condition"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getWeatherData(){
+            var city_name=document.getElementById('city_name').value;
+            axios.get("http://api.weatherapi.com/v1/forecast.json?key=7851c2b89ae9442e800135604230404&q="+city_name+"&days=3&aqi=no&alerts=no")
+            .then((response)=>{
+                console.log(response.data)
+                var currentDay=response.data.current;
+                var location=response.data.location;
+                var tomorrow=response.data.forecast.forecastday[1]
+                var dayAfterTomorrow=response.data.forecast.forecastday[2]
+                console.log(response.data.forecast)
+                document.getElementById('location').innerHTML=location.name+" - (Now)";
+                document.getElementById('last_updt').innerText=currentDay.last_updated;
+                document.getElementById('current_temp').innerHTML=currentDay.temp_c+'<span>&#8451;</span>';
+                document.getElementById('icon').innerHTML=`<img src=${currentDay.condition.icon}>`;
+                document.getElementById('current_weather').innerText=currentDay.condition.text;
+
+                document.getElementById('day1_date').innerHTML=tomorrow.date;
+                document.getElementById('day1_avg_temp').innerHTML=tomorrow.day.avgtemp_c+'<span>&#8451;</span>';
+                document.getElementById('day1_icon').innerHTML=`<img src=${tomorrow.day.condition.icon}>`;
+                document.getElementById('day1_condition').innerHTML=tomorrow.day.condition.text;
+
+                document.getElementById('day2_date').innerHTML=dayAfterTomorrow.date;
+                document.getElementById('day2_avg_temp').innerHTML=dayAfterTomorrow.day.avgtemp_c+'<span>&#8451;</span>';
+                document.getElementById('day2_icon').innerHTML=`<img src=${dayAfterTomorrow.day.condition.icon}>`;
+                document.getElementById('day2_condition').innerHTML=dayAfterTomorrow.day.condition.text;
+            })
+        }
+                
+    </script>
+</body>
+</html>
